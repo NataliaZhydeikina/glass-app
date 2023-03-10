@@ -1,11 +1,9 @@
-import { Canvas } from '@react-three/fiber'
-import React, { useEffect, useMemo } from 'react'
+import { Canvas } from '@react-three/fiber';
+import React, { Suspense, useEffect, useMemo } from 'react';
 import './App.css'
 import fragmentShader from './utils/fragmentShader.frag';
 import vertexShader from './utils/vertexShader.glsl';
-import { useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import rabbitTexture from "./assets/gltf_embedded_0.png";
+import { useGLTF, CameraControls } from '@react-three/drei';
 import rabbitModel from "./assets/rabbit.glb";
 
 function App() {
@@ -13,18 +11,26 @@ function App() {
     fragmentShader,
     vertexShader
   }), []);
+  const model = useGLTF(rabbitModel);
   useEffect(() => {
-    console.log(rabbitModel);
+    console.log(model);
   }, []);
+
   return (
     <div className="App">
       <Canvas flat linear>
+        <CameraControls />
         <ambientLight intensity={0.7} />
-        <directionalLight color="0xffffff" position={[-4, 3, -2.25]} />
+        <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
         <mesh>
           <planeGeometry args={[5, 5]} />
           <shaderMaterial {...data} />
         </mesh>
+        <Suspense fallback={null}>
+          <group>
+            <mesh position={[0, -2, 0]} geometry={model.nodes.rabbit1.geometry} material={model.materials[""]} />
+          </group>
+        </Suspense>
       </Canvas>
     </div>
   )
