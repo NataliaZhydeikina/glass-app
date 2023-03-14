@@ -3,18 +3,17 @@ import React, { Suspense, useEffect, useMemo } from 'react';
 import './App.css'
 import fragmentShader from './utils/fragmentShader.frag';
 import vertexShader from './utils/vertexShader.glsl';
-import { useGLTF, CameraControls } from '@react-three/drei';
-import rabbitModel from "./assets/rabbit.glb";
+import { CameraControls } from '@react-three/drei';
+import Rabbit from './components/Rabbit';
 
 function App() {
   const data = useMemo(() => ({
     fragmentShader,
-    vertexShader
+    vertexShader,
+    uniforms: {
+      // uTexture: { value: new TextureLoader().load(modelTexture) }
+    }
   }), []);
-  const model = useGLTF(rabbitModel);
-  useEffect(() => {
-    console.log(model);
-  }, []);
 
   return (
     <div className="App">
@@ -27,12 +26,7 @@ function App() {
           <shaderMaterial {...data} />
         </mesh> */}
         <Suspense fallback={null}>
-          <group>
-            <mesh position={[0, -2, 0]} geometry={model.nodes.rabbit1.geometry}>
-              <shaderMaterial {...data} />
-            </mesh>
-            {/* material={model.materials[""]}  */}
-          </group>
+          <Rabbit />
         </Suspense>
       </Canvas>
     </div>
