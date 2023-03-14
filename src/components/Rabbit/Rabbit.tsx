@@ -43,6 +43,7 @@ function Rabbit() {
       uvAttribute.setXY(i, 0, 1);
     }
     uvAttribute.needsUpdate = true
+    console.log(rabbitModel)
   }, []);
 
   return (
