@@ -34,21 +34,22 @@ function Rabbit() {
     }
   }), []);
   useEffect(() => {
-    let uv = Array.from((model.nodes.rabbit1.geometry.attributes.uv as BufferAttribute).array);
-    //console.log(uv);
-    //console.log(model.nodes.rabbit1.geometry.getAttribute('uv'))
-    const uvAttribute = model.nodes.rabbit1.geometry.getAttribute('uv') as BufferAttribute;
+    //console.log(model);
+    let uv = Array.from((model.nodes.Object_5.geometry.attributes.uv as BufferAttribute).array);
+    console.log(uv);
+    console.log(model.nodes.Object_5.geometry.getAttribute('uv'))
+    const uvAttribute = model.nodes.Object_5.geometry.getAttribute('uv') as BufferAttribute;
     for (let i = 0; i < uvAttribute.count; i += 2) {
       uvAttribute.setXY(i, 0, 0);
       uvAttribute.setXY(i, 0, 1);
     }
     uvAttribute.needsUpdate = true
-    //console.log(rabbitModel)
+    console.log(model.nodes.Object_5)
   }, []);
 
   return (
     <group>
-      <mesh position={[0, -2, 0]} geometry={model.nodes.rabbit1.geometry} >
+      <mesh position={[0, -2, 0]} geometry={model.nodes.Object_5.geometry} >
         <shaderMaterial {...data} />
         {/* <meshStandardMaterial {...props} /> */}
       </mesh>

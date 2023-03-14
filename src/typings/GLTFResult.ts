@@ -3,7 +3,7 @@ import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 
 export type GLTFResult = GLTF & {
   nodes: {
-    rabbit1: Mesh
+    Object_5: Mesh
   },
   materials: {
     "": MeshStandardMaterial
