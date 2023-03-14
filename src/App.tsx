@@ -22,13 +22,16 @@ function App() {
         <CameraControls />
         <ambientLight intensity={0.7} />
         <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
-        <mesh>
+        {/* <mesh>
           <planeGeometry args={[5, 5]} />
           <shaderMaterial {...data} />
-        </mesh>
+        </mesh> */}
         <Suspense fallback={null}>
           <group>
-            <mesh position={[0, -2, 0]} geometry={model.nodes.rabbit1.geometry} material={model.materials[""]} />
+            <mesh position={[0, -2, 0]} geometry={model.nodes.rabbit1.geometry}>
+              <shaderMaterial {...data} />
+            </mesh>
+            {/* material={model.materials[""]}  */}
           </group>
         </Suspense>
       </Canvas>
