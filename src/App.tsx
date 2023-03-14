@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber';
 import React, { Suspense, useEffect, useMemo } from 'react';
 import './App.css'
-import fragmentShader from './utils/fragmentShader.frag';
-import vertexShader from './utils/vertexShader.glsl';
+import fragmentShader from './utils/glass/fragmentShader.frag';
+import vertexShader from './utils/glass/vertexShader.glsl';
 import { CameraControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 
