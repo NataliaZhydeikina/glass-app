@@ -10,30 +10,26 @@ function GlassScene() {
   const scroll = useScroll() as Scroll;
   const { height: h } = useThree((state) => state.viewport)
   const ref = useRef<Scene>();
+  const [sub, get] = useKeyboardControls<Controls>()
 
   useEffect(() => {
     scroll.scroll.current = 0.5;
   });
 
   useFrame((state, delta) => {
-    //console.log(scroll);
     if (!ref.current) return;
+    let { up, down } = get();
+    if (up) {
+      scroll.scroll.current = Math.max(0, scroll.scroll.current - 0.05);
+    }
+    if (down) {
+      scroll.scroll.current = Math.min(1, scroll.scroll.current + 0.05);
+    }
     let x = ref.current.position.y;
     let y = scroll.scroll.current * (-h + 100) + (h / 2) - 50;
     ref.current.position.y = MathUtils.damp(x, y, 8, delta);
   });
 
-  const [sub, get] = useKeyboardControls<Controls>()
-  useEffect(() => sub(st => {
-    if (st.up) {
-      console.log("key up")
-      scroll.scroll.current = Math.max(0, scroll.scroll.current - 0.1);
-    }
-    if (st.down) {
-      console.log("key down");
-      scroll.scroll.current = Math.min(1, scroll.scroll.current + 0.1);
-    }
-  }), [])
   return (
     <scene ref={ref as RefObject<Scene>}>
       <mesh>
