@@ -22,17 +22,18 @@ function GlassScene() {
   const tl = useRef();
 
   useFrame(() => {
-    console.log(scroll.offset);
-    tl.current.seek(scroll.offset * tl.current.duration());
+    //console.log(scroll);
+    //tl.current.seek(scroll.offset * tl.current.duration());
+    ref.current.position.y = scroll.scroll.current * (h / 2 - h);
   });
 
-  useLayoutEffect(() => {
-    tl.current = gsap.timeline();
-    tl.current.to(ref.current.position, {
-      duration: 1,
-      y: h / 2 - h
-    });
-  }, []);
+  // useLayoutEffect(() => {
+  //   tl.current = gsap.timeline();
+  //   tl.current.to(ref.current.position, {
+  //     duration: 1,
+  //     y: h / 2 - h
+  //   });
+  // }, []);
 
   return (
     <scene ref={ref}>
