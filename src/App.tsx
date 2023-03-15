@@ -28,7 +28,7 @@ function App() {
         near: -100,
         far: 100
       }} orthographic>
-        <ScrollControls damping={6}>
+        <ScrollControls damping={10} pages={1}>
           <Scroll>
             <CameraControls />
             <ambientLight intensity={0.7} />

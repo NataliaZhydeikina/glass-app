@@ -1,42 +1,25 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { RefObject, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrthographicCamera, useAspect, useScroll } from "@react-three/drei";
-import gsap from "gsap";
+import { useScroll, ScrollControlsState, ScrollControls } from "@react-three/drei";
+import { MathUtils, Scene } from "three";
+
+type Scroll = ScrollControlsState & { scroll: { current: number } }
 
 function GlassScene() {
-  // const [width, height, depth] = useAspect(innerWidth, innerHeight);
-  // useFrame(() => {
-  //   console.log((innerWidth / innerHeight));
-  //   console.log((width / height));
-  // });
-  const scroll = useScroll();
-  // useFrame(() => {
-  //   const a = data.range(0, 1 / 3);
-  //   console.log(data.scroll.current);
-  // });
-  const { width: w, height: h } = useThree((state) => state.viewport)
-  // useFrame(() => {
-  //   console.log(h / 2 - h * data.scroll.current);
-  // });
-  const ref = useRef();
-  const tl = useRef();
+  const scroll = useScroll() as Scroll;
+  const { height: h } = useThree((state) => state.viewport)
+  const ref = useRef<Scene>();
 
-  useFrame(() => {
-    //console.log(scroll);
-    //tl.current.seek(scroll.offset * tl.current.duration());
-    ref.current.position.y = scroll.scroll.current * (h / 2 - h);
+  useFrame((state, delta) => {
+    if (!ref.current) return;
+    console.log(scroll.offset);
+    let x = ref.current.position.y;
+    let y = scroll.scroll.current * (-h + 100) + (h / 2) - 50;
+    ref.current.position.y = MathUtils.damp(x, y, 8, delta);
   });
 
-  // useLayoutEffect(() => {
-  //   tl.current = gsap.timeline();
-  //   tl.current.to(ref.current.position, {
-  //     duration: 1,
-  //     y: h / 2 - h
-  //   });
-  // }, []);
-
   return (
-    <scene ref={ref}>
+    <scene ref={ref as RefObject<Scene>}>
       <mesh>
         <planeGeometry args={[100, 100]} />
         <meshBasicMaterial color="grey" />
