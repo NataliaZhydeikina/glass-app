@@ -3,10 +3,11 @@ import React, { Suspense, useEffect, useMemo, useRef } from 'react';
 import './App.css'
 import fragmentShader from './utils/glass/fragmentShader.frag';
 import vertexShader from './utils/glass/vertexShader.glsl';
-import { CameraControls, PerspectiveCamera, Scroll, ScrollControls } from '@react-three/drei';
+import { CameraControls, KeyboardControls, KeyboardControlsEntry, PerspectiveCamera, Scroll, ScrollControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 import GlassScene from './components/GlassScene';
-import useWindowSize from './hooks/useWindowSize';
+import Controls from './utils/controls';
+
 
 function App() {
   const data = useMemo(() => ({
@@ -16,7 +17,13 @@ function App() {
       // uTexture: { value: new TextureLoader().load(modelTexture) }
     }
   }), []);
-  useWindowSize();
+
+  const map = useMemo<KeyboardControlsEntry<Controls>[]>(() => [
+    { name: Controls.up, keys: ['ArrowUp', 'KeyW'] },
+    { name: Controls.down, keys: ['ArrowDown', 'KeyS'] },
+    { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
+    { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
+  ], [])
 
   return (
     <div className="App">
@@ -32,17 +39,18 @@ function App() {
       }} orthographic>
         <ScrollControls damping={10} pages={1}>
           <Scroll>
-            {/* <CameraControls /> */}
-            <ambientLight intensity={0.7} />
-            <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
-            {/* <mesh>
+            <KeyboardControls map={map}>
+              <ambientLight intensity={0.7} />
+              <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
+              {/* <mesh>
               <planeGeometry args={[5, 5]} />
               <shaderMaterial {...data} />
             </mesh> */}
-            {/* <Suspense fallback={null}>
+              {/* <Suspense fallback={null}>
               <Rabbit />
             </Suspense> */}
-            <GlassScene />
+              <GlassScene />
+            </KeyboardControls>
           </Scroll>
         </ScrollControls>
       </Canvas>
