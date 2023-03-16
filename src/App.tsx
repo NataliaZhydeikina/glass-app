@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       { /*camera={{ fov: 70, near: 0.01, far: 100 }}*/}
-      <Canvas camera={{
+      <Canvas resize={{ scroll: false }} camera={{
         zoom: 1,
         top: 1,
         bottom: -1,

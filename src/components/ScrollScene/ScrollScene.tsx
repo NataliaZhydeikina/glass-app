@@ -4,7 +4,12 @@ import { useScroll, ScrollControlsState, useKeyboardControls } from "@react-thre
 import { MathUtils, Scene } from "three";
 import Controls from "../../utils/controls";
 
-type Scroll = ScrollControlsState & { scroll: { current: number } }
+type Scroll = ScrollControlsState & {
+  scroll: {
+    current: number,
+    offset: number
+  }
+}
 type Props = {
   children: JSX.Element,
 };
@@ -21,12 +26,17 @@ function ScrollScene({ children }: Props) {
 
   useFrame((state, delta) => {
     if (!ref.current) return;
+
     let { up, down } = get();
     if (up) {
-      scroll.scroll.current = Math.max(0, scroll.scroll.current - 0.05);
+      let y = (scroll.scroll.current - 0.01) * h;
+      scroll.el.scrollTo(0, y);
+
     }
     if (down) {
-      scroll.scroll.current = Math.min(1, scroll.scroll.current + 0.05);
+      let y = (scroll.scroll.current + 0.01) * h;
+      scroll.el.scrollTo(0, y);
+
     }
     let x = ref.current.position.y;
     let y = scroll.scroll.current * (-h + 100) + (h / 2) - 50;
