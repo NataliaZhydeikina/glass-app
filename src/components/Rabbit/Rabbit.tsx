@@ -28,12 +28,6 @@ function Rabbit() {
 
   return (
     <group>
-      <ambientLight intensity={1} />
-      <directionalLight intensity={1} color="0xffffff" />
-      <mesh position={[0, 0, -200]}>
-        <planeGeometry args={[1000, 1000]} />
-        <meshStandardMaterial color="0xffffff" />
-      </mesh>
       <mesh position={[0, -200, 0]} scale={[100, 100, 100]} geometry={model.nodes.Object_5.geometry} >
         <shaderMaterial {...data} />
       </mesh>
