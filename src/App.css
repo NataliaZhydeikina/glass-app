@@ -3,15 +3,53 @@
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  background-color: #fff;
+  background-color: #000000;
   width: 100vw;
   height: 100%;
   overflow: hidden;
   height: 100vh;
+  position: relative;
 }
 
 .App {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+@font-face {
+  font-family: "fantasquesansmono";
+  src: url(./assets/fantasquesansmono-regular.otf);
+}
+
+@font-face {
+  font-family: "fantasquesansmono";
+  font-weight: 800;
+  src: url(./assets/fantasquesansmono-bold.otf);
+}
+
+.heading {
+  color: #ffffff;
+  font-family: "fantasquesansmono", serif;
+  width: 200px;
+  text-shadow: 0 0 1px #000;
+  position: fixed;
+}
+
+.paragraph {
+  color: #ffffff;
+  font-family: "fantasquesansmono", serif;
+  width: 30vw;
+  text-shadow: 0 0 1px #000;
+  min-width: 200px;
+  position: fixed;
+}
+
+.overflow {
+  width: 400px;
+  min-height: 400px;
+  height: 70vh;
+  shape-outside: ellipse(49.20% 50% at -24.5% 36.75%);
+  float: left;
+  position: fixed;
 }

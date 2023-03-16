@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useMemo } from 'react';
-import './App.css'
-import { KeyboardControls, KeyboardControlsEntry, OrbitControls, Scroll, ScrollControls } from '@react-three/drei';
+import './App.css';
+import { KeyboardControls, KeyboardControlsEntry, Scroll, ScrollControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 import GlassScene from './components/GlassScene';
 import Controls from './utils/controls';
@@ -13,7 +13,7 @@ function App() {
     { name: Controls.down, keys: ['ArrowDown', 'KeyS'] },
     { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
     { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
-  ], [])
+  ], []);
 
   return (
     <div className="App">
@@ -23,20 +23,14 @@ function App() {
         bottom: -1,
         left: -1,
         right: 1,
-        near: -300,
-        far: 300
+        near: -400,
+        far: 400
       }} orthographic>
         <ScrollControls damping={10} pages={1}>
           <Scroll>
-            <OrbitControls></OrbitControls>
             <KeyboardControls map={map}>
               <ambientLight intensity={0.7} />
               <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
-              {/* <mesh>
-              <planeGeometry args={[5, 5]} />
-              <shaderMaterial {...data} />
-            </mesh> */}
-
               <GlassScene>
                 <Suspense fallback={null}>
                   <Rabbit />
@@ -50,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
