@@ -15,7 +15,7 @@ function GlassScene({ children }: Props) {
   const cam = useRef<Camera>(null!);
   const scene = useMemo(() => {
     const scene = new Scene();
-    scene.background = new Color("yellow");
+    scene.background = new Color("white");
     return scene
   }, []);
   const target = useFBO();
@@ -41,6 +41,10 @@ function GlassScene({ children }: Props) {
           {createPortal(children, scene)}
           <planeGeometry args={[400, 400]} />
           <shaderMaterial {...data} />
+        </mesh>
+        <mesh position={[0, 0, -200]}>
+          <planeGeometry args={[innerWidth, innerHeight * 2]} />
+          <meshBasicMaterial color={"black"} />
         </mesh>
       </group>
     </ScrollScene>

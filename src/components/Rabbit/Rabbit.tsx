@@ -29,7 +29,10 @@ function Rabbit() {
 
   return (
     <group>
-      <mesh position={[0, -200, 0]} scale={[100 * (scale[0] / scale[1]), 100, 100]} geometry={model.nodes.Object_5.geometry} >
+      <mesh
+        position={[100, -200, -150]}
+        scale={[150 * (scale[0] / scale[1]), 150, 150]}
+        geometry={model.nodes.Object_5.geometry}>
         <shaderMaterial {...data} />
       </mesh>
     </group>

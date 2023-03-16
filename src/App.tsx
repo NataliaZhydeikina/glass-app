@@ -23,20 +23,15 @@ function App() {
         bottom: -1,
         left: -1,
         right: 1,
-        near: -300,
-        far: 300
+        near: -400,
+        far: 400
       }} orthographic>
         <ScrollControls damping={10} pages={1}>
           <Scroll>
-            <OrbitControls></OrbitControls>
             <KeyboardControls map={map}>
+              <OrbitControls />
               <ambientLight intensity={0.7} />
               <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
-              {/* <mesh>
-              <planeGeometry args={[5, 5]} />
-              <shaderMaterial {...data} />
-            </mesh> */}
-
               <GlassScene>
                 <Suspense fallback={null}>
                   <Rabbit />
