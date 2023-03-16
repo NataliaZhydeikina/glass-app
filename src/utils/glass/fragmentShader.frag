@@ -20,9 +20,5 @@ void main() {
   vec2 uv_display = vUv + uvOut*0.1 + uvIn*0.1 + (grain.rg-vec2(0.5))*0.1;
   vec4 textureGlass = texture2D(uTexture, uv_display);
 
-  gl_FragColor = vec4(0.,1.,0.,1.);
-  gl_FragColor = grain;
-  gl_FragColor = vec4(mag_in, mag_in,0.,1.);
-  gl_FragColor = vec4(uv_display,0.,1.);
   gl_FragColor = textureGlass;
 }

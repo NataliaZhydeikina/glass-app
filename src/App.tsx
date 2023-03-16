@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useMemo } from 'react';
-import './App.css'
-import { KeyboardControls, KeyboardControlsEntry, OrbitControls, Scroll, ScrollControls } from '@react-three/drei';
+import './App.css';
+import { Html, KeyboardControls, KeyboardControlsEntry, OrbitControls, Scroll, ScrollControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 import GlassScene from './components/GlassScene';
 import Controls from './utils/controls';
@@ -13,7 +13,7 @@ function App() {
     { name: Controls.down, keys: ['ArrowDown', 'KeyS'] },
     { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
     { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
-  ], [])
+  ], []);
 
   return (
     <div className="App">
@@ -37,12 +37,19 @@ function App() {
                   <Rabbit />
                 </Suspense>
               </GlassScene>
+              <group>
+                <Html occlude="raycast" position={[0, 0, 0]}>
+                  <h1 className="App-heading">Кролик</h1>
+                  <p className="App-paragraph">Кролик – невеликий пухнастий звірок роду ссавців сімейства Зайцевих. Цих тваринок не тільки розводять заради м’яса та хутра, а й тримають у домашніх умовах в якості домашніх улюбленців.</p>
+                </Html>
+              </group>
             </KeyboardControls>
           </Scroll>
         </ScrollControls>
+
       </Canvas>
     </div>
   )
 }
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
 import { useFBO } from "@react-three/drei";
 import { createPortal, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
-import { Camera, Color, Scene, TextureLoader } from "three";
+import { RefObject, useMemo, useRef } from "react";
+import { Camera, Color, Mesh, Scene, TextureLoader } from "three";
 import ScrollScene from "../ScrollScene/ScrollScene";
 import fragmentShader from '../../utils/glass/fragmentShader.frag';
 import vertexShader from '../../utils/glass/vertexShader.glsl';
@@ -19,12 +19,21 @@ function GlassScene({ children }: Props) {
     return scene
   }, []);
   const target = useFBO();
+  const sceneRef = useRef<Mesh>();
 
   useFrame((state) => {
-    cam.current = state.camera;
-    state.gl.setRenderTarget(target)
-    state.gl.render(scene, cam.current)
-    state.gl.setRenderTarget(null)
+    const { mouse: { x, y }, gl, camera } = state;
+    scene.position.x = x * 150;
+    scene.position.y = y * 150;
+    cam.current = camera;
+
+    gl.setRenderTarget(target);
+    gl.render(scene, cam.current);
+    gl.setRenderTarget(null);
+
+    if (!sceneRef.current) return;
+    sceneRef.current.position.x = -x * 100;
+    sceneRef.current.position.y = -y * 100;
   });
   const data = useMemo(() => ({
     fragmentShader,
@@ -37,7 +46,7 @@ function GlassScene({ children }: Props) {
   return (
     <ScrollScene>
       <group>
-        <mesh>
+        <mesh ref={sceneRef as RefObject<Mesh>}>
           {createPortal(children, scene)}
           <planeGeometry args={[400, 400]} />
           <shaderMaterial {...data} />
