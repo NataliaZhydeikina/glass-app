@@ -1,11 +1,20 @@
+import { RenderTexture } from "@react-three/drei";
 import ScrollScene from "../ScrollScene/ScrollScene";
 
-function GlassScene() {
+type Props = {
+  children: JSX.Element
+}
+
+function GlassScene({ children }: Props) {
   return (
     <ScrollScene>
       <mesh>
-        <planeGeometry args={[100, 100]} />
-        <meshBasicMaterial color="grey" />
+        <planeGeometry args={[300, 300]} />
+        <meshBasicMaterial color="grey">
+          <RenderTexture attach="map">
+            {children}
+          </RenderTexture>
+        </meshBasicMaterial>
       </mesh>
     </ScrollScene>
   );

@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useMemo, useRef } from 'react';
 import './App.css'
 import fragmentShader from './utils/glass/fragmentShader.frag';
 import vertexShader from './utils/glass/vertexShader.glsl';
-import { CameraControls, KeyboardControls, KeyboardControlsEntry, PerspectiveCamera, Scroll, ScrollControls } from '@react-three/drei';
+import { CameraControls, KeyboardControls, KeyboardControlsEntry, OrbitControls, PerspectiveCamera, Scroll, ScrollControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 import GlassScene from './components/GlassScene';
 import Controls from './utils/controls';
@@ -34,11 +34,12 @@ function App() {
         bottom: -1,
         left: -1,
         right: 1,
-        near: -100,
-        far: 100
+        near: -300,
+        far: 300
       }} orthographic>
         <ScrollControls damping={10} pages={1}>
           <Scroll>
+            <OrbitControls></OrbitControls>
             <KeyboardControls map={map}>
               <ambientLight intensity={0.7} />
               <directionalLight intensity={0.5} color="0xffffff" position={[-4, 3, -2.25]} />
@@ -46,10 +47,12 @@ function App() {
               <planeGeometry args={[5, 5]} />
               <shaderMaterial {...data} />
             </mesh> */}
-              {/* <Suspense fallback={null}>
-              <Rabbit />
-            </Suspense> */}
-              <GlassScene />
+
+              <GlassScene>
+                <Suspense fallback={null}>
+                  <Rabbit />
+                </Suspense>
+              </GlassScene>
             </KeyboardControls>
           </Scroll>
         </ScrollControls>
