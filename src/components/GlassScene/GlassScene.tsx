@@ -1,8 +1,11 @@
-import { useAspect, useFBO } from "@react-three/drei";
+import { useFBO } from "@react-three/drei";
 import { createPortal, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-import { Camera, Color, Scene } from "three";
+import { Camera, Color, Scene, TextureLoader } from "three";
 import ScrollScene from "../ScrollScene/ScrollScene";
+import fragmentShader from '../../utils/glass/fragmentShader.frag';
+import vertexShader from '../../utils/glass/vertexShader.glsl';
+import distortionTexture from "../../assets/distortion@1x.jpg";
 
 type Props = {
   children: JSX.Element
@@ -23,13 +26,21 @@ function GlassScene({ children }: Props) {
     state.gl.render(scene, cam.current)
     state.gl.setRenderTarget(null)
   });
+  const data = useMemo(() => ({
+    fragmentShader,
+    vertexShader,
+    uniforms: {
+      uTexture: { value: target.texture },
+      uGrain: { value: new TextureLoader().load(distortionTexture) }
+    }
+  }), []);
   return (
     <ScrollScene>
       <group>
         <mesh>
           {createPortal(children, scene)}
           <planeGeometry args={[400, 400]} />
-          <meshBasicMaterial color="white" map={target.texture} />
+          <shaderMaterial {...data} />
         </mesh>
       </group>
     </ScrollScene>
