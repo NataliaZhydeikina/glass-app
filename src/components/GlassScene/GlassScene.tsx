@@ -1,7 +1,7 @@
-import { useFBO } from "@react-three/drei";
+import { Html, useFBO } from "@react-three/drei";
 import { createPortal, useFrame } from "@react-three/fiber";
 import { RefObject, useMemo, useRef } from "react";
-import { Camera, Color, Mesh, Scene, TextureLoader } from "three";
+import { Camera, Color, Group, Mesh, Scene, TextureLoader } from "three";
 import ScrollScene from "../ScrollScene/ScrollScene";
 import fragmentShader from '../../utils/glass/fragmentShader.frag';
 import vertexShader from '../../utils/glass/vertexShader.glsl';
@@ -19,7 +19,8 @@ function GlassScene({ children }: Props) {
     return scene
   }, []);
   const target = useFBO();
-  const sceneRef = useRef<Mesh>();
+  const sceneRef = useRef<Group>();
+  const textRef = useRef<Group>();
 
   useFrame((state) => {
     const { mouse: { x, y }, gl, camera } = state;
@@ -34,6 +35,11 @@ function GlassScene({ children }: Props) {
     if (!sceneRef.current) return;
     sceneRef.current.position.x = -x * 100;
     sceneRef.current.position.y = -y * 100;
+
+    if (!textRef.current) return;
+    textRef.current.position.x = -x * 100;
+    textRef.current.position.y = -y * 100;
+
   });
   const data = useMemo(() => ({
     fragmentShader,
@@ -46,11 +52,22 @@ function GlassScene({ children }: Props) {
   return (
     <ScrollScene>
       <group>
-        <mesh ref={sceneRef as RefObject<Mesh>}>
-          {createPortal(children, scene)}
-          <planeGeometry args={[400, 400]} />
-          <shaderMaterial {...data} />
-        </mesh>
+        <group ref={sceneRef as RefObject<Group>}>
+          <mesh>
+            {createPortal(children, scene)}
+            <planeGeometry args={[400, 400]} />
+            <shaderMaterial {...data} />
+          </mesh>
+          <group>
+            <Html position={[-100, innerHeight / 2, 0]}>
+              <h1 className="heading">Кролик</h1>
+            </Html>
+            <Html position={[100, innerHeight / 4, 0]}>
+              <div className="overflow"></div>
+              <p className="paragraph">Кролик – невеликий пухнастий звірок роду ссавців сімейства Зайцевих. Цих тваринок не тільки розводять заради м’яса та хутра, а й тримають у домашніх умовах в якості домашніх улюбленців.</p>
+            </Html>
+          </group>
+        </group>
         <mesh position={[0, 0, -200]}>
           <planeGeometry args={[innerWidth, innerHeight * 2]} />
           <meshBasicMaterial color={"black"} />

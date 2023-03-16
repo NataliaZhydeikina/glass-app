@@ -11,6 +11,12 @@
   position: relative;
 }
 
+.App {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @font-face {
   font-family: "fantasquesansmono";
   src: url(./assets/fantasquesansmono-regular.otf);
@@ -22,18 +28,28 @@
   src: url(./assets/fantasquesansmono-bold.otf);
 }
 
-.App {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.App-heading {
+.heading {
   color: #ffffff;
   font-family: "fantasquesansmono", serif;
+  width: 200px;
+  text-shadow: 0 0 1px #000;
+  position: fixed;
 }
 
-.App-paragraph {
+.paragraph {
   color: #ffffff;
   font-family: "fantasquesansmono", serif;
+  width: 30vw;
+  text-shadow: 0 0 1px #000;
+  min-width: 200px;
+  position: fixed;
+}
+
+.overflow {
+  width: 400px;
+  min-height: 400px;
+  height: 70vh;
+  shape-outside: ellipse(49.20% 50% at -24.5% 36.75%);
+  float: left;
+  position: fixed;
 }
