@@ -1,5 +1,5 @@
 import modelTexture from "../../assets/model.jpg";
-import { useGLTF } from "@react-three/drei";
+import { useAspect, useGLTF } from "@react-three/drei";
 import rabbitModel from "../../assets/rabbit.glb";
 import { GLTFResult } from "../../typings/GLTFResult";
 import { useEffect, useMemo } from "react";
@@ -16,6 +16,7 @@ function Rabbit() {
       uTexture: { value: new TextureLoader().load(modelTexture) }
     }
   }), []);
+  const scale = useAspect(innerWidth, innerHeight);
 
   useEffect(() => {
     const uvAttribute = model.nodes.Object_5.geometry.getAttribute('uv') as BufferAttribute;
@@ -28,7 +29,7 @@ function Rabbit() {
 
   return (
     <group>
-      <mesh position={[0, -200, 0]} scale={[100, 100, 100]} geometry={model.nodes.Object_5.geometry} >
+      <mesh position={[0, -200, 0]} scale={[100 * (scale[0] / scale[1]), 100, 100]} geometry={model.nodes.Object_5.geometry} >
         <shaderMaterial {...data} />
       </mesh>
     </group>

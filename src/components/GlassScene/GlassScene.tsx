@@ -1,4 +1,4 @@
-import { useFBO } from "@react-three/drei";
+import { useAspect, useFBO } from "@react-three/drei";
 import { createPortal, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { Camera, Color, Scene } from "three";
@@ -9,9 +9,9 @@ type Props = {
 }
 
 function GlassScene({ children }: Props) {
-  const cam = useRef<Camera>(null!)
+  const cam = useRef<Camera>(null!);
   const scene = useMemo(() => {
-    const scene = new Scene()
+    const scene = new Scene();
     scene.background = new Color("yellow");
     return scene
   }, []);
@@ -25,11 +25,13 @@ function GlassScene({ children }: Props) {
   });
   return (
     <ScrollScene>
-      <mesh>
-        {createPortal(children, scene)}
-        <planeGeometry args={[300, 300]} />
-        <meshBasicMaterial color="white" map={target.texture} />
-      </mesh>
+      <group>
+        <mesh>
+          {createPortal(children, scene)}
+          <planeGeometry args={[400, 400]} />
+          <meshBasicMaterial color="white" map={target.texture} />
+        </mesh>
+      </group>
     </ScrollScene>
   );
 }

@@ -26,7 +26,6 @@ function ScrollScene({ children }: Props) {
 
   useFrame((state, delta) => {
     if (!ref.current) return;
-
     let { up, down } = get();
     if (up) {
       let y = (scroll.scroll.current - 0.01) * h;
@@ -39,7 +38,7 @@ function ScrollScene({ children }: Props) {
 
     }
     let x = ref.current.position.y;
-    let y = scroll.scroll.current * (-h + 100) + (h / 2) - 50;
+    let y = scroll.scroll.current * (-h + 400) + (h / 2) - 200;
     ref.current.position.y = MathUtils.damp(x, y, 8, delta);
   });
 
