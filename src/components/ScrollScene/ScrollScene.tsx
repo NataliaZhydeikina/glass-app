@@ -6,8 +6,7 @@ import Controls from "../../utils/controls";
 
 type Scroll = ScrollControlsState & {
   scroll: {
-    current: number,
-    offset: number
+    current: number
   }
 }
 type Props = {

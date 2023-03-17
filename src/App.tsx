@@ -1,10 +1,11 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useMemo } from 'react';
 import './App.css';
-import { KeyboardControls, KeyboardControlsEntry, Scroll, ScrollControls } from '@react-three/drei';
+import { Html, KeyboardControls, KeyboardControlsEntry, Scroll, ScrollControls } from '@react-three/drei';
 import Rabbit from './components/Rabbit';
 import GlassScene from './components/GlassScene';
 import Controls from './utils/controls';
+import { Camera, Object3D } from 'three';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <Canvas resize={{ scroll: false }} camera={{
+      <Canvas camera={{
         zoom: 1,
         top: 1,
         bottom: -1,
