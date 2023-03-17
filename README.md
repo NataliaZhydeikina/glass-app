@@ -1,2 +1,3 @@
 [site](https://nataliazhydeikina.github.io/glass-app/)
-![glass effect](https://raw.githubusercontent.com/NataliaZhydeikina/glass-app/main/public/rabbit.png)
+***
+[![glass effect](https://raw.githubusercontent.com/NataliaZhydeikina/glass-app/main/public/rabbit.png)](https://nataliazhydeikina.github.io/glass-app/)
